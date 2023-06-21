@@ -1,0 +1,79 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}  
+  
+:root {
+    /*These are the colors*/
+     --color-primary: #EFEFEF;
+     --color-secondary: #f7f7f7;
+     --color-accent1: #ffc000;
+     --color-accent2: #7CB242;
+     --color-accent3: #FF9E9E;
+     --color-accent4: #3F51B5;
+  
+     --color-paragraph-background: #FFDE59;
+     --color-nav-link: #000000;
+     --color-nav-background: #cec7a8;
+     --color-nav-hover-link: #3a508a;
+     --color-nav-hover-background: #efefef;
+   
+     /*These are the fonts*/
+     --font-heading: 'Luckiest Guy', Verdana, sans-serif;
+     --font-subheading: 'Finger Paint', Verdana, sans-serif;
+     --font-subheading2: Poppins, Verdana, sans-serif;
+     --font-paragraph: Poppins, Verdana, sans-serif;
+}
+
+
+#welcomeImg, #patternOptions {
+    display: flex;
+    justify-content: center;   
+}
+
+#patternOptions {  
+    width: 70%;
+    margin: 1vw auto;
+}
+
+#pattern-options {
+    display: inline;
+}
+
+label {
+    align-self: center;
+    padding-right: 8px;
+    font-family: var(--font-paragraph);
+    font-size: 4.5vw;
+    
+}
+
+#pattern-options {
+    display: flex;
+    align-self: center;
+    padding: 3px;
+    font-family: var(--font-paragraph);
+    font-size: 50px;
+}
+
+
+
+#welcomeImg {
+    margin: 10px auto;
+    border-radius: 20px;
+    width: 90%;
+    background-color: var(--color-accent2);
+    border:#3F51B5 3px solid;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+#welcomeImg img{
+    width: 70%;
+    padding-left: 3vw;
+    padding-top: 4vw;
+}
+
