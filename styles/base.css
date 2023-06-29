@@ -29,6 +29,13 @@
      --font-paragraph: Poppins, Verdana, sans-serif;
 }
 
+.logo {
+    margin-left: 10px;
+}
+
+.logo img{
+    width: 90px;
+}
 
 #welcomeImg, #patternOptions {
     display: flex;
@@ -76,4 +83,25 @@ label {
     padding-left: 3vw;
     padding-top: 4vw;
 }
+#startBtn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+#start {
+    
+    margin: 10px auto;
+    width: 110px;
+    border: 3px solid #90bc44;
+    padding: 10px;
+    border-radius: 25px; 
+    cursor: pointer;
+    box-shadow: 10px 10px 10px #6f736f;
+    
+}
 
+#targetPattern, #letterClues{
+    font-family: var(--font-subheading2);
+    font-size: 30px;
+    text-align: center;
+}

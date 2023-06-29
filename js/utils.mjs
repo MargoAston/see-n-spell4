@@ -1,3 +1,5 @@
+import { setGameBoard } from "./gameboard.mjs";
+
 export async function renderWithTemplate(
     templateFn,
     parentElement,
@@ -36,6 +38,15 @@ export async function loadHeaderFooter() {
     await renderWithTemplate(headerTemplateFn, headerEl);
     await renderWithTemplate(footerTemplateFn, footerEl);
   
-  
-    // document.querySelector('#searchBtn2').addEventListener('click', searchProducts);
+}
+
+// Event listener  for 'start game' button
+const startButton = document.getElementById("start");
+startButton.addEventListener("click", startGame);
+
+function startGame(event) {
+    let gamePhase = 1;
+    
+    
+    setGameBoard();       
 }
