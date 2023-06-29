@@ -29,6 +29,26 @@
      --font-paragraph: Poppins, Verdana, sans-serif;
 }
 
+#guess {
+    display: none;
+    justify-content: center; 
+}
+
+#guess input {
+    font-size: 50px;
+    border: none;
+    font-family: var(--font-subheading2);
+}
+
+#onset {
+    text-align: right;
+}
+
+#spellingPattern {
+    text-align: center;
+    color: red;
+}
+
 .logo {
     margin-left: 10px;
 }
@@ -104,4 +124,5 @@ label {
     font-family: var(--font-subheading2);
     font-size: 30px;
     text-align: center;
+    color: red;
 }

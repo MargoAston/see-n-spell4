@@ -1,5 +1,6 @@
 const url = 'json/lists.json';
 let theOptions = [];
+let theList = [];
 
 
 export async function getListData(url){
@@ -32,47 +33,45 @@ export async function displayDropdown() {
     newLabel.htmlFor = "currPattern";
 
     document.getElementById("patternOptions").appendChild(newSelect); 
+
 }
 
-function getList() {
-    pattern = document.getElementById("currPattern").value;
-    theList = aList.setList(pattern);
-    wordNum = 0;
-    
+export function getList() {
+    let pattern = document.getElementById("currPattern").value;
+
+    for (const object of theOptions) {
+        if (object.spellingPattern == pattern) {
+            return object;
+        }
+    }
+
 }
 
-function getWordInfo(num) {
-    let numb = parseInt(num);
+
+export function getWordInfo(num, list) {
+
     let wordInfo = [];
     switch (num) {
         case 0:
-            wordInfo = theList.word1;
+            wordInfo = list.word1;
             break;
         case 1:
-            wordInfo = theList.word2; 
+            wordInfo = list.word2; 
             break;
         case 2:
-            wordInfo = theList.word3;
+            wordInfo = list.word3;
             break;           
         case 3:
-            wordInfo = theList.word4;
+            wordInfo = list.word4;
             break;
         case 4:
-            wordInfo = theList.word5;    
+            wordInfo = list.word5;    
     }
 
     return wordInfo;  
 }
 
 
-function setWordInfo(wordNum){
-    let currentWordInfo = getWordInfo(wordNum);
-
-    currWord = currentWordInfo[0];
-    currOnset = currentWordInfo[1];
-    currRime = currentWordInfo[2];
-    clue = currentWordInfo[3];
-}
 
 function setGameBoard () {
     document.getElementById("icon-img").src = clue;

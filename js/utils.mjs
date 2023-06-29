@@ -1,5 +1,7 @@
 import { setGameBoard } from "./gameboard.mjs";
 
+import { getList } from "./list.mjs";
+
 export async function renderWithTemplate(
     templateFn,
     parentElement,
@@ -46,7 +48,7 @@ startButton.addEventListener("click", startGame);
 
 function startGame(event) {
     let gamePhase = 1;
-    
-    
-    setGameBoard();       
+    getList();
+    setGameBoard();  
+    document.querySelector("#spellingPattern").focus();    
 }

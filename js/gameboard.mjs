@@ -1,29 +1,67 @@
+import { getList, getWordInfo } from "./list.mjs";
+
+var round = 1
 
 
- let clue = "public/images/bat.png"
+ 
 
 export function setGameBoard () {
-   
-   console.log("in setgameboard");
-
-   var dropdownBox = document.querySelector("#patternOptions");
+    //Do not display spelling pattern dropdown box
+    var dropdownBox = document.querySelector("#patternOptions");
     dropdownBox.style.display = "none";
 
-    var targetPtrn = document.createElement("p");
-
-    targetPtrn.innerHTML = "You are working on short a";
-
-    document.querySelector("#targetPattern").appendChild(targetPtrn);
-
-    let clueImg = document.querySelector("#picClue");
-    clueImg.src = clue;
-
+    //Do not display the start button
     var startBtn = document.querySelector("#startBtn");
     startBtn.style.display = "none";
 
-    var letterClue = document.createElement("p");
-    letterClue.innerText = "_ _ _";
-    document.querySelector("#letterClues").appendChild(letterClue);
+    //Display letter input boxes
+    document.querySelector("#guess").style.display = "flex";
+
+    // Get the list
+    let list = getList();
+
+    // Display current spelling pattern
+    var targetPtrn = document.createElement("p");
+    targetPtrn.innerHTML = list.spellingPattern;
+    document.querySelector("#targetPattern").appendChild(targetPtrn);
+
+
+    //get the word
+    let word = getWordInfo(0, list);
+    let currWord = word[0];
+    let currOnset = word[1];
+    let currRime = word[2];
+    let currImg = word[3];
+
+    //display the picture clue
+    document.querySelector("#picClue").src = "public/" + currImg;
+
+    
+
+    //Display the consonant clues
+    if (round == 1) {
+        document.getElementById("onset").value = currOnset;
+        document.getElementById("spellingPattern").value = "";
+
+        //Add background color to onset box
+        document.getElementById("spellingPattern").style.backgroundColor = "#f5DEB3";
+
+        document.getElementById("rime").value = currRime;
+
+/*
+    if (round == 1) {
+        aWord.textContent = currWord;
+    document.getElementById("onset").focus();
+        document.getElementById("onset").value = currOnset;
+        document.getElementById("rime").value = currRime;
+        document.getElementById("targetPattern").style.backgroundColor = "#f5DEB3";
+    
+    } */
+
+
+    
+
+    }   
 
    /* document.getElementById("icon-img").src = clue;
     const aWord = document.querySelector("#wordCheck");
