@@ -1,4 +1,4 @@
-import { setGameBoard } from "./gameboard.mjs";
+import { setGameBoard, displayWord, resetGame } from "./gameboard.mjs";
 
 import { getList } from "./list.mjs";
 
@@ -46,9 +46,17 @@ export async function loadHeaderFooter() {
 const startButton = document.getElementById("start");
 startButton.addEventListener("click", startGame);
 
+// Event listener  for 'roundOver' button
+const roundNext = document.querySelector("#roundOver");
+roundNext.addEventListener("click", displayWord);
+roundNext.value = "Play Round";
 
+// Event listener for 'play new game' button
+const newGame = document.querySelector("#newGameBtn");
+newGame.addEventListener("click", resetGame);
 
 export function startGame(event) {
+  console.log("in startGame");
     let gamePhase = 1;
     getList();
     setGameBoard();  

@@ -30,7 +30,9 @@
         <form action="/action_page.php" id="patternOptions">
             <label for="pattern-options">Choose a spelling pattern: </label>
         </form>
-        <div id="targetPattern"></div>
+        <div id="targetPattern">
+            <p id="displayPattern">z</p>
+        </div>
         
         <div id="welcomeImg">
             <img id="picClue" src="public/images/quinn.png" alt="Quinn">
@@ -51,7 +53,20 @@
 
             <input tabindex="0" type=text id="rime" name="rime" maxlength="3" size="3">
         </div>
-        <div id="message"></div>
+
+        <!--Round over message-->
+        <div id="message">
+            <p>"🌟Good Job🌟"</p>
+            <input type="button" id="roundOver" value="">
+        </div>
+
+        <!--Play New Game button-->
+        <div>
+            <input type="button" id="newGameBtn" value="Play New Game">
+        </div>
+
+        
+        
        
     </main>
 

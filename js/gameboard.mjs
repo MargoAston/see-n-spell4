@@ -15,6 +15,7 @@ var currImg = "";
  
 
 export function setGameBoard () {
+    console.log("in setGameBoard");
     //Do not display spelling pattern dropdown box
     var dropdownBox = document.querySelector("#patternOptions");
     dropdownBox.style.display = "none";
@@ -30,15 +31,17 @@ export function setGameBoard () {
     list = getList();
 
     // Display current spelling pattern
-    targetPtrn = document.createElement("p");
-    targetPtrn.innerHTML = list.spellingPattern;
-    document.querySelector("#targetPattern").appendChild(targetPtrn);
-
     targetPtrn = list.spellingPattern;
+    console.log("The pattern " + targetPtrn);
+    const ptrn = document.querySelector("#displayPattern");
+    ptrn.innerText = targetPtrn;
+    ptrn.style.display = "block";
+
     displayWord()
 }
 
-function displayWord(){
+export function displayWord(){
+    console.log("in displayWord");
     //get the word
     let word = getWordInfo(wordNum, list);
     let currWord = word[0];
@@ -57,8 +60,7 @@ function displayWord(){
         document.getElementById("onset").value = currOnset;
         const pattern = document.getElementById("target");
         pattern.value = "";
-        //Add background color to spellingPattern box
-        document.getElementById("target").style.backgroundColor = "#f5DEB3";
+       
 
         //Add event listener to check spelling and update score
         document.getElementById("rime").value = currRime;
@@ -114,6 +116,7 @@ function displayWord(){
 
 //Check spelling and update score
 function updateScore(event) {
+    console.log("in updateScore");
     //get user inputs
     let guessOnset = document.querySelector("#onset").value;
     let guessPattern = document.querySelector("#target").value;
@@ -140,36 +143,21 @@ function nextWord() {
     if (wordNum >4) {
         round ++;
         
-        clearBoard()
-        
         document.querySelector("#picClue").src = "public/images/flowershappyfaces.png";
 
         document.querySelector("#guess").style.display = "none";
         
-        if (round == 2 ) {
-        let message = document.createElement("p");
-        message.innerText = "🌟Good Job🌟";
-        document.querySelector("#message").appendChild(message);
-
-        let roundOver = document.createElement("input");
-        roundOver.type = "button";
-        roundOver.id = "roundOver";
-        roundOver.value = "Play Round " + round;
-        document.querySelector("#message").appendChild(roundOver);
-        
-        roundOver.addEventListener("click", displayWord);
-        }
-        else if (round == 3) {
-            document.querySelector("#message").style.display = "block";
-            document.querySelector("#roundOver").value = "Play Round" + round;
-        }
-        else {
-            
+        if (round > 3 ) {
             gameOver();
-            
         }
-        wordNum = 0;
+        else  {
+            //Turn off message
+            document.querySelector("#message").style.display = "block";
+            //Turn on button
+            document.querySelector("#roundOver").value = "Play Round " + round;
+        }
         
+        wordNum = 0; 
     }
     else {
         displayWord();
@@ -205,21 +193,12 @@ function gameOver() {
 
     document.querySelector("#message").style.display = "none";
 
-
-    let newGame = document.createElement("input");
-    newGame.type = "button";
-    newGame.id = "newGameBtn";
-    newGame.value = "Start New Game";
-
-    newGame.addEventListener("click", resetBoard);
-    
-    document.querySelector("#startBtn").appendChild(newGame);
-
-
-
+    let btnOn = document.querySelector("#newGameBtn");
+    btnOn.style.display = "block";
 }
 
-function resetBoard() {
+export function resetGame() {
+    console.log("in resetGame");
     round = 1;
     targetPtrn = "";
     list = [];
@@ -240,6 +219,6 @@ function resetBoard() {
     startImg.alt = "Quinn";
 
     document.querySelector("#newGameBtn").style.display = "none";
-    document.querySelector("#start").style.display = "flex";
+    document.querySelector("#start").style.display = "block";
 
 }
