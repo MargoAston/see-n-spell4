@@ -46,9 +46,11 @@ export async function loadHeaderFooter() {
 const startButton = document.getElementById("start");
 startButton.addEventListener("click", startGame);
 
-function startGame(event) {
+
+
+export function startGame(event) {
     let gamePhase = 1;
     getList();
     setGameBoard();  
-    document.querySelector("#spellingPattern").focus();    
+       
 }

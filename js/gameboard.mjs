@@ -1,6 +1,15 @@
-import { getList, getWordInfo } from "./list.mjs";
+import { getList, getWordInfo, displayDropdown } from "./list.mjs";
 
-var round = 1
+import { startGame } from "./utils.mjs";
+
+var round = 1;
+var targetPtrn = "";
+var list = [];
+var score = 0;
+var wordNum = 0;
+var currOnset = "";
+var currRime = "";
+var currImg = "";
 
 
  
@@ -11,27 +20,31 @@ export function setGameBoard () {
     dropdownBox.style.display = "none";
 
     //Do not display the start button
-    var startBtn = document.querySelector("#startBtn");
+    var startBtn = document.querySelector("#start");
     startBtn.style.display = "none";
 
     //Display letter input boxes
     document.querySelector("#guess").style.display = "flex";
 
     // Get the list
-    let list = getList();
+    list = getList();
 
     // Display current spelling pattern
-    var targetPtrn = document.createElement("p");
+    targetPtrn = document.createElement("p");
     targetPtrn.innerHTML = list.spellingPattern;
     document.querySelector("#targetPattern").appendChild(targetPtrn);
 
+    targetPtrn = list.spellingPattern;
+    displayWord()
+}
 
+function displayWord(){
     //get the word
-    let word = getWordInfo(0, list);
+    let word = getWordInfo(wordNum, list);
     let currWord = word[0];
-    let currOnset = word[1];
-    let currRime = word[2];
-    let currImg = word[3];
+    currOnset = word[1];
+    currRime = word[2];
+    currImg = word[3];
 
     //display the picture clue
     document.querySelector("#picClue").src = "public/" + currImg;
@@ -40,68 +53,193 @@ export function setGameBoard () {
 
     //Display the consonant clues
     if (round == 1) {
+        document.querySelector("#target").focus()
         document.getElementById("onset").value = currOnset;
-        document.getElementById("spellingPattern").value = "";
+        const pattern = document.getElementById("target");
+        pattern.value = "";
+        //Add background color to spellingPattern box
+        document.getElementById("target").style.backgroundColor = "#f5DEB3";
 
-        //Add background color to onset box
-        document.getElementById("spellingPattern").style.backgroundColor = "#f5DEB3";
-
+        //Add event listener to check spelling and update score
         document.getElementById("rime").value = currRime;
-
-/*
-    if (round == 1) {
-        aWord.textContent = currWord;
-    document.getElementById("onset").focus();
-        document.getElementById("onset").value = currOnset;
-        document.getElementById("rime").value = currRime;
-        document.getElementById("targetPattern").style.backgroundColor = "#f5DEB3";
-    
-    } */
+        pattern.addEventListener("change", updateScore);
+    }  
+    else if (round == 2) {
+        //remove message
+        document.querySelector("#message").style.display = "none";
+        //display letter clues
+        document.querySelector("#guess").style.display = "flex";
 
 
-    
+        let inputOnset = document.getElementById("onset");
+        inputOnset.focus();
 
-    }   
+        document.querySelector("#target").tabIndex = "-1";
 
-   /* document.getElementById("icon-img").src = clue;
-    const aWord = document.querySelector("#wordCheck");
-    aWord.textContent = currWord;
-    
-    if (gamePhase == 1) {
-        aWord.textContent = currWord;
-    document.getElementById("onset").focus();
-        document.getElementById("onset").value = currOnset;
-        document.getElementById("rime").value = currRime;
-        document.getElementById("targetPattern").style.backgroundColor = "#f5DEB3";
-    
-    } 
-    else if (gamePhase == 2) {
+        inputOnset.addEventListener("keypress", changeFocusEnter);
         
-        document.getElementById("onset").focus();
-        document.getElementById("targetPattern").value = pattern;
-        const phaseupdate = document.querySelector("#phaseNum");
-        phaseupdate.textContent = "Step 2"; 
-
-        // Hide original input boxes
-       if (currOnset != "") {
-        document.getElementById("onset").style.backgroundColor = "#f5DEB3";
-       }
-       if (currRime != "") {
-        document.getElementById("rime").style.backgroundColor = "#f5DEB3";
-       }
+        document.getElementById("target").value = targetPtrn;
+       
+       
+        let guess = document.querySelector("#rime");
+        guess.addEventListener("change", updateScore);
         
     }
-    else if (gamePhase == 3) {
-        document.getElementById("onset").focus();
-        //Set game display to phase 3
-        const phaseupdate = document.querySelector("#phaseNum");
-        phaseupdate.textContent = "Step 3";
-        //Hide input boxes for phase 1 & 2
-        const targetPatternHide = document.getElementById("targetPattern");
-        targetPatternHide.style.display = 'none';
-        const rimeHide = document.getElementById("rime");
-        rimeHide.style.display = 'none';
+    else if (round == 3) {
+        //remove message
+        document.querySelector("#message").style.display = "none";
+        //display letter clues
+        document.querySelector("#guess").style.display = "flex";
+
+        let inputOnset2 = document.getElementById("onset");
+        inputOnset2.focus();
+
+        inputOnset2.removeEventListener("keypress", changeFocusEnter);
+        inputOnset2.addEventListener("keypress", changeFocusEnter2);
+
+        let inputTarget = document.querySelector("#target");
+        inputTarget.removeEventListener("change", updateScore);
+        inputTarget.addEventListener("keypress", changeFocusEnter);
+        
+
+        document.querySelector("#target").tabIndex = "0";
+        document.querySelector("#rime").tabIndex = "0";
+
+        
+        
         //Add background color to onset box
-        document.getElementById("onset").style.backgroundColor = "#f5DEB3";
-    }*/
+        //document.getElementById("onset").style.backgroundColor = "#f5DEB3";
+    }
+}
+
+//Check spelling and update score
+function updateScore(event) {
+    //get user inputs
+    let guessOnset = document.querySelector("#onset").value;
+    let guessPattern = document.querySelector("#target").value;
+    let guessRime = document.querySelector("#rime").value;
+
+    if(round == 1) { 
+        if (guessPattern == targetPtrn) {
+            score ++;
+            console.log(score);
+        }
+    }
+    else if (round == 2) {
+        if (guessOnset == currOnset && guessRime == currRime) {
+            score ++;
+            console.log(score);
+        }
+    }
+    nextWord();
+}
+
+function nextWord() {
+    wordNum++;
+    clearBoard();
+    if (wordNum >4) {
+        round ++;
+        
+        clearBoard()
+        
+        document.querySelector("#picClue").src = "public/images/flowershappyfaces.png";
+
+        document.querySelector("#guess").style.display = "none";
+        
+        if (round == 2 ) {
+        let message = document.createElement("p");
+        message.innerText = "🌟Good Job🌟";
+        document.querySelector("#message").appendChild(message);
+
+        let roundOver = document.createElement("input");
+        roundOver.type = "button";
+        roundOver.id = "roundOver";
+        roundOver.value = "Play Round " + round;
+        document.querySelector("#message").appendChild(roundOver);
+        
+        roundOver.addEventListener("click", displayWord);
+        }
+        else if (round == 3) {
+            document.querySelector("#message").style.display = "block";
+            document.querySelector("#roundOver").value = "Play Round" + round;
+        }
+        else {
+            
+            gameOver();
+            
+        }
+        wordNum = 0;
+        
+    }
+    else {
+        displayWord();
+    }
+}
+
+function clearBoard() {
+    //Clear onset box
+    document.querySelector("#onset").value = "";
+    //Clear targer spelling pattern box
+    document.querySelector("#target").value = "";
+    //Clear rime box
+    document.querySelector("#rime").value = ""; 
+    
+}
+
+function changeFocusEnter(event) {
+    if (event.key === "Enter"){
+        document.querySelector("#rime").focus();
+    }
+}
+
+function changeFocusEnter2(event) {
+    if (event.key === "Enter"){
+        document.querySelector("#target").focus();
+    }
+}
+
+function gameOver() {
+    console.log("in gameOver");
+    let message = document.querySelector("p");
+    message.innerText = "🌟Game Over🌟";
+
+    document.querySelector("#message").style.display = "none";
+
+
+    let newGame = document.createElement("input");
+    newGame.type = "button";
+    newGame.id = "newGameBtn";
+    newGame.value = "Start New Game";
+
+    newGame.addEventListener("click", resetBoard);
+    
+    document.querySelector("#startBtn").appendChild(newGame);
+
+
+
+}
+
+function resetBoard() {
+    round = 1;
+    targetPtrn = "";
+    list = [];
+    score = 0;
+    wordNum = 0;
+    currOnset = "";
+    currRime = "";
+    currImg = "";
+
+    document.querySelector("p").style.display = "none";
+
+    var dropdownBox = document.querySelector("#patternOptions");
+    dropdownBox.style.display = "flex";
+    
+
+    let startImg = document.querySelector("#picClue");
+    startImg.src = "public/images/quinn.png";
+    startImg.alt = "Quinn";
+
+    document.querySelector("#newGameBtn").style.display = "none";
+    document.querySelector("#start").style.display = "flex";
+
 }
