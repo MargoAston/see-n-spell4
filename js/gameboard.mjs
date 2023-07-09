@@ -134,6 +134,11 @@ function updateScore(event) {
             console.log(score);
         }
     }
+    else if ( round == 3) {
+        if (guessOnset == currOnset && guessPattern == targetPtrn && guessRime == currRime);
+            score ++;
+            console.log("round 3: " + score);
+    }
     nextWord();
 }
 
