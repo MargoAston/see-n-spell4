@@ -37,11 +37,16 @@ export function setGameBoard () {
     ptrn.innerText = targetPtrn;
     ptrn.style.display = "block";
 
-    displayWord()
+    displayWord();
+
+    // Display score progress bar
+    document.querySelector("#chart").style.display = "block";
+
+    displayScore();
 }
 
 export function displayWord(){
-    console.log("in displayWord");
+    
     //get the word
     let word = getWordInfo(wordNum, list);
     let currWord = word[0];
@@ -107,10 +112,6 @@ export function displayWord(){
         document.querySelector("#target").tabIndex = "0";
         document.querySelector("#rime").tabIndex = "0";
 
-        
-        
-        //Add background color to onset box
-        //document.getElementById("onset").style.backgroundColor = "#f5DEB3";
     }
 }
 
@@ -125,20 +126,19 @@ function updateScore(event) {
     if(round == 1) { 
         if (guessPattern == targetPtrn) {
             score ++;
-            console.log(score);
         }
     }
     else if (round == 2) {
         if (guessOnset == currOnset && guessRime == currRime) {
             score ++;
-            console.log(score);
         }
     }
     else if ( round == 3) {
         if (guessOnset == currOnset && guessPattern == targetPtrn && guessRime == currRime);
             score ++;
-            console.log("round 3: " + score);
     }
+
+    displayScore();
     nextWord();
 }
 
@@ -172,7 +172,7 @@ function nextWord() {
 function clearBoard() {
     //Clear onset box
     document.querySelector("#onset").value = "";
-    //Clear targer spelling pattern box
+    //Clear target spelling pattern box
     document.querySelector("#target").value = "";
     //Clear rime box
     document.querySelector("#rime").value = ""; 
@@ -192,7 +192,7 @@ function changeFocusEnter2(event) {
 }
 
 function gameOver() {
-    console.log("in gameOver");
+    
     let message = document.querySelector("p");
     message.innerText = "🌟Game Over🌟";
 
@@ -203,7 +203,7 @@ function gameOver() {
 }
 
 export function resetGame() {
-    console.log("in resetGame");
+    
     round = 1;
     targetPtrn = "";
     list = [];
@@ -225,5 +225,14 @@ export function resetGame() {
 
     document.querySelector("#newGameBtn").style.display = "none";
     document.querySelector("#start").style.display = "block";
+}
 
+/******* quickChart api ********/
+function displayScore() {
+const chartObj =  "https://quickchart.io/chart?height=20&width=200&c={type:'progressBar',data:{ datasets:[{data:[__PLACEHOLDER__],backgroundColor:['orange']},{data:[15],backgroundColor:['navy']}]}}";
+  
+let result = chartObj.replace("__PLACEHOLDER__", score);
+ 
+let myChart = document.querySelector("#chart");
+myChart.src = result;
 }

@@ -6,5 +6,3 @@ await loadHeaderFooter();
 
 displayDropdown();
 
-
-

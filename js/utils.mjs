@@ -62,3 +62,4 @@ export function startGame(event) {
     setGameBoard();  
        
 }
+
