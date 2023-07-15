@@ -134,8 +134,9 @@ function updateScore(event) {
         }
     }
     else if ( round == 3) {
-        if (guessOnset == currOnset && guessPattern == targetPtrn && guessRime == currRime);
+        if (guessOnset == currOnset && guessPattern == targetPtrn && guessRime == currRime){
             score ++;
+        }
     }
 
     displayScore();
