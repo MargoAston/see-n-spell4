@@ -130,8 +130,8 @@ label {
     width: 100%;
     justify-content: center;
 }
-#start, #newGameBtn {
-    
+
+#start, #newGameBtn {  
     margin: 10px auto;
     width: 130px;
     border: 3px solid #90bc44;
@@ -139,8 +139,7 @@ label {
     border-radius: 25px; 
     cursor: pointer;
     box-shadow: 10px 10px 10px #6f736f;
-    font-family: var(--font-paragraph);
-    
+    font-family: var(--font-paragraph);   
 }
 
 #targetPattern, #letterClues{
@@ -181,3 +180,15 @@ label {
     margin: 10px auto;
     max-width: 90%;
 }
+
+footer {
+    margin-top: 100px;
+    display: block;
+    text-align: center;
+    font-family: var(--font-paragraph);
+}
+
+#cont-info {
+    padding-top: 15px;
+}
+
