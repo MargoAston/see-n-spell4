@@ -56,10 +56,9 @@ const newGame = document.querySelector("#newGameBtn");
 newGame.addEventListener("click", resetGame);
 
 export function startGame(event) {
-  console.log("in startGame");
-    let gamePhase = 1;
-    getList();
-    setGameBoard();  
+  let gamePhase = 1;
+  getList();
+  setGameBoard();  
        
 }
 

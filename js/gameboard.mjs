@@ -15,7 +15,6 @@ var currImg = "";
  
 
 export function setGameBoard () {
-    console.log("in setGameBoard");
     //Do not display spelling pattern dropdown box
     var dropdownBox = document.querySelector("#patternOptions");
     dropdownBox.style.display = "none";
@@ -32,7 +31,6 @@ export function setGameBoard () {
 
     // Display current spelling pattern
     targetPtrn = list.spellingPattern;
-    console.log("The pattern " + targetPtrn);
     const ptrn = document.querySelector("#displayPattern");
     ptrn.innerText = targetPtrn;
     ptrn.style.display = "block";
@@ -117,7 +115,6 @@ export function displayWord(){
 
 //Check spelling and update score
 function updateScore(event) {
-    console.log("in updateScore");
     //get user inputs
     let guessOnset = document.querySelector("#onset").value;
     let guessPattern = document.querySelector("#target").value;
